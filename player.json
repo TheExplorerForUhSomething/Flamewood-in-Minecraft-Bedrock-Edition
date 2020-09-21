@@ -1,0 +1,475 @@
+{
+    "format_version" : "1.8.0",
+	"animation_controllers":{
+/*如你所见，这里是控制器，这个Addons的核心文件之一
+所以，你为什么要看这里......?*/
+	 "controller.animation.guard1": {
+      "states": {
+            "guard": 
+        {"on_entry": [
+      "/playsound random.totem @s",
+      "/particle mengxin:guard ~ ~ ~"
+          ],
+       "transitions": [ 
+  	{ "default":"!query.can_fly"}
+          ]
+        },
+            "default": {
+             "transitions": [ 
+  	{ "guard":"query.can_fly"}
+          ]
+            }}},
+	"controller.animation.guardmiss": {
+      "states": {
+            "miss": 
+        {"on_entry": [
+     "@s guard_miss"
+          ],
+       "transitions": [ 
+   	{ "default":  "!query.variant == 300 || !query.is_tamed"}
+          ]
+        },
+            "default": {
+        "on_entry": [
+     "@s de_guard_miss"
+          ],
+             "transitions": [ 
+   	{ "miss":  "query.variant == 300 && query.is_tamed"}
+          ]
+            }}},
+	  "controller.animation.player": {
+      "states": {
+            "play": {"on_entry": [
+      "/function for_the_player"
+          ]
+        },
+            "default": {
+             "transitions": [ 
+  	{ "play":"query.variant == 1"}
+          ]
+            }}},
+	 "controller.animation.guard": {
+      "states": {
+            "guard": 
+        {"on_entry": [
+      "@s de_guard",
+      "/effect @e[type=mengxin:guard,r=2] invisibility 1 1 true"
+          ]
+        },
+             "guard1": {
+          "transitions": [ 
+  	{ "guard":"!query.is_riding"}
+          ]
+        },
+            "default": {
+             "transitions": [ 
+  	{ "guard1":"!query.is_riding"}
+          ]
+            }}},
+	  "controller.animation.ender2": {
+      "states": {
+            "ender": {"on_entry": [
+      "/spreadplayers ~ ~ 0 5 @s"
+          ],
+          "transitions": [ 
+  	{ "default":"!query.is_sheared"}
+          ]
+        },
+            "default": {
+             "transitions": [ 
+  	{ "ender":"query.is_sheared"}
+          ]
+            }}},
+/*......*/
+ "controller.animation.lightning": {
+      "states": {
+            "default": {
+          "on_entry": [
+          "/spreadplayers ~ ~ 0 4 @s"
+          ]
+        }
+            }},
+ "controller.animation.yunshi": {
+      "states": {
+            "default": {
+          "on_entry": [
+         "/tp @s ~ ~20 ~"
+          ]}}},
+ "controller.animation.yunshi_fall": {
+      "states": {
+            "default": {
+          "on_entry": [
+         "/tp @s ~ ~80 ~"
+          ]}}},
+ "controller.animation.yunshi_spawn": {
+      "states": {
+            "default": {
+          "transitions": [
+        	{ "spawn1": "query.life_time == 0.1" }
+  	]},
+  	            "spawn1": {
+          "on_entry": [
+            "/spreadplayers ~ ~ 0 1 @s"
+          ],
+          "transitions": [
+          	{ "spawn": "query.life_time == 0.15" }
+          ]
+        },
+            "spawn": {
+          "on_entry": [
+            "/function yunshi_fall"
+          ]}
+          
+      }},
+           "controller.animation.chaosblackhole": {
+      "states": {
+            "default": {
+          "on_entry": [
+         "/tp @s ~ ~3 ~"
+          ]}}},
+           "controller.animation.ender1": {
+      "states": {
+            "default": {
+          "on_entry": [
+         "/tp @p ~ ~ ~"
+          ]
+        }
+            }},
+	 "controller.animation.firewand_ex": {
+    "states":{
+            "default": {
+          "transitions": [
+  	{ "fire":  "query.variant == 101 && query.is_sneaking && variable.attack_time"},
+   	{ "ball":  "query.variant == 103 && query.is_sneaking && variable.attack_time"}
+  	]
+        },
+        "fire": {"on_entry": [
+    "/replaceitem entity @s slot.weapon.mainhand 0 mengxin:firewand1"
+          ],
+          "transitions": [ 
+  	{ "default":"!variable.attack_time"}
+          ]
+        },
+        "ball": {"on_entry": [
+    "/replaceitem entity @s slot.weapon.mainhand 0 mengxin:firewand"
+          ],
+          "transitions": [ 
+  	{ "default":"!variable.attack_time"}
+          ]
+        }
+    }
+    },
+    	 "controller.animation.guard_ex": {
+    "states":{
+            "default": {
+          "transitions": [
+  	{ "guard":  "query.variant == 300 && query.is_sneaking && variable.attack_time && !query.is_tamed"},
+   	{ "de_guard":  "query.variant == 300 && query.is_sneaking && variable.attack_time && query.is_tamed"}
+  	]
+        },
+        "guard": {"on_entry": [
+     "@s guard_guard"
+          ],
+          "transitions": [ 
+  	{ "default":"!variable.attack_time"}
+          ]
+        },
+        "de_guard": {"on_entry": [
+     "@s de_guard",
+"/effect @e[type=mengxin:guard,r=2] invisibility 1 1 true"
+          ],
+          "transitions": [ 
+  	{ "default":"!variable.attack_time"}
+          ]
+        }
+    }
+    },
+    	 "controller.animation.guard_ex1": {
+    "states":{
+            "default": {
+         "on_entry": [
+     "@s de_guard"
+          ],
+         "transitions": 
+    [{"guard":"query.has_rider"}]
+        },
+        "guard": {
+          "transitions": [ 
+  	{ "default":"!query.has_rider"}
+          ]
+        }
+    }
+    },
+    	  "controller.animation.ender_ex": {
+    "states":{
+            "default": {
+          "transitions": [
+  	{ "ball1":  "query.variant == 205 && query.is_sneaking && variable.attack_time"},
+   	{ "ball":  "query.variant == 204 && query.is_sneaking && variable.attack_time"}
+  	]
+        },
+        "ball1": {"on_entry": [
+    "/replaceitem entity @s slot.weapon.mainhand 0 mengxin:ender_wand"
+          ],
+          "transitions": [ 
+  	{ "default":"!variable.attack_time"}
+          ]
+        },
+        "ball": {"on_entry": [
+    "/replaceitem entity @s slot.weapon.mainhand 0 mengxin:ender_wand1"
+          ],
+          "transitions": [ 
+  	{ "default":"!variable.attack_time"}
+          ]
+        }
+    }
+    },
+	    	"controller.animation.firewand2": {
+    "states":{
+            "default": {
+               "on_entry": [
+            "@s de_firewand"
+          ],
+          "transitions": [ 
+     	{ "firewand": "query.variant == 103 && query.is_using_item == 1.0" }          ]
+        },
+         "firewand": {"on_entry": [
+            "@s firewand_fire"
+          ],
+          "transitions": [ 
+  	{ "default": "query.is_using_item == 0.0 || query.variant != 103 " }
+          ]
+        }
+    }
+    },
+	"controller.animation.firewand1": {
+    "states":{
+            "default": {
+               "on_entry": [
+            "@s firewand2",                        "/replaceitem entity @s slot.weapon.mainhand 0 mengxin:firewand 1 1"
+          ],
+          "transitions": [ 
+     	{ "firewand": "query.variant == 101 && query.is_using_item == 1.0" }          ]
+        },
+         "firewand": {
+             "on_entry": [
+            "@s firewand2",                        "/replaceitem entity @s slot.weapon.mainhand 0 mengxin:firewand 1 2"
+          ],
+          "transitions": [ 
+     	{ "default": "query.variant == 101 && query.is_using_item == 1.0" }  
+          ]
+        }
+    }
+    },
+    	"controller.animation.yunshiwand": {
+    "states":{
+            "default": {
+               "on_entry": [
+            "@s yunshi_fire",                        "/replaceitem entity @s slot.weapon.mainhand 0 mengxin:yunshiwand 1 1"
+          ],
+          "transitions": [ 
+     	{ "yunshiwand": "query.variant == 203 && query.is_using_item == 1.0" }          ]
+        },
+         "yunshiwand": {
+             "on_entry": [
+            "@s yunshi_fire",                        "/replaceitem entity @s slot.weapon.mainhand 0 mengxin:yunshiwand 1 2"
+          ],
+          "transitions": [ 
+{ "default": "query.variant == 203 && query.is_using_item == 1.0" }  
+          ]
+        }
+    }
+    },
+	"controller.animation.blackhole": {
+    "states":{
+            "default": {
+               "on_entry": [
+            "@s blackholewand_fire",                        "/replaceitem entity @s slot.weapon.mainhand 0 mengxin:blackholewand 1 1"
+          ],
+          "transitions": [ 
+     	{ "blackhole": "query.variant == 201 && query.is_using_item == 1.0" }          ]
+        },
+         "blackhole": {
+             "on_entry": [
+            "@s blackholewand_fire",                        "/replaceitem entity @s slot.weapon.mainhand 0 mengxin:blackholewand 1 2"
+          ],
+          "transitions": [ 
+     	{ "default": "query.variant == 201 && query.is_using_item == 1.0" }  
+          ]
+        }
+      }
+    },
+	"controller.animation.guardwand": {
+    "states":{
+            "default": {
+               "on_entry": [
+            "@s guard_fire",                        "/replaceitem entity @s slot.weapon.mainhand 0 mengxin:guard_wand 1 1"
+          ],
+          "transitions": [ 
+     	{ "guard": "query.variant == 300 && query.is_using_item == 1.0 && !query.is_sneaking" }          ]
+        },
+         "guard": {
+             "on_entry": [
+            "@s guard_fire",                        "/replaceitem entity @s slot.weapon.mainhand 0 mengxin:guard_wand 1 2"
+          ],
+          "transitions": [ 
+     	{ "default": "query.variant == 300 && query.is_using_item == 1.0 && !query.is_sneaking" }  
+          ]
+        }
+      }
+    },
+"controller.animation.guardwand1": {
+    "states":{
+            "default": {
+               "on_entry": [
+            "@s guard_fire2",                        "/replaceitem entity @s slot.weapon.mainhand 0 mengxin:guard_wand 1 1"
+          ],
+          "transitions": [ 
+     	{ "guard": "query.variant == 300 && query.is_using_item == 1.0 && query.is_sneaking" }          ]
+        },
+         "guard": {
+             "on_entry": [
+            "@s guard_fire2",                        "/replaceitem entity @s slot.weapon.mainhand 0 mengxin:guard_wand 1 2"
+          ],
+          "transitions": [ 
+     	{ "default": "query.variant == 300 && query.is_using_item == 1.0 && query.is_sneaking" }  
+          ]
+        }
+      }
+    },
+	"controller.animation.enderball": {
+    "states":{
+            "default": {
+               "on_entry": [
+            "@s ender_ball_fire",                        "/replaceitem entity @s slot.weapon.mainhand 0 mengxin:ender_wand1 1 1"
+          ],
+          "transitions": [ 
+     	{ "enderwand": "query.variant == 205 && query.is_using_item == 1.0" }          ]
+        },
+         "enderwand": {
+             "on_entry": [
+            "@s ender_ball_fire",                        "/replaceitem entity @s slot.weapon.mainhand 0 mengxin:ender_wand1 1 2"
+          ],
+          "transitions": [ 
+     	{ "default": "query.variant == 205 && query.is_using_item == 1.0" }  
+          ]
+        }
+      }
+    },
+        	"controller.animation.ender": {
+    "states":{
+            "default": {
+               "on_entry": [
+            "@s ender_fire",                        "/replaceitem entity @s slot.weapon.mainhand 0 mengxin:ender_wand 1 1"
+          ],
+          "transitions": [ 
+     	{ "enderwand": "query.variant == 204 && query.is_using_item == 1.0" }          ]
+        },
+         "enderwand": {
+             "on_entry": [
+            "@s ender_fire",                        "/replaceitem entity @s slot.weapon.mainhand 0 mengxin:ender_wand 1 2"
+          ],
+          "transitions": [ 
+     	{ "default": "query.variant == 204 && query.is_using_item == 1.0" }  
+          ]
+        }
+      }
+    },        
+    "controller.animation.lightning_wand": {
+    "states":{
+            "default": {
+               "on_entry": [
+            "@s lightning_fire",                        "/replaceitem entity @s slot.weapon.mainhand 0 mengxin:lightning_wand 1 1"
+          ],
+          "transitions": [ 
+     	{ "lightning_wand": "query.variant == 206 && query.is_using_item == 1.0" }          ]
+        },
+         "lightning_wand": {
+             "on_entry": [
+            "@s lightning_fire",                        "/replaceitem entity @s slot.weapon.mainhand 0 mengxin:lightning_wand 1 2"
+          ],
+          "transitions": [ 
+     	{ "default": "query.variant == 206 && query.is_using_item == 1.0" }  
+          ]
+        }
+      }
+    },
+    	"controller.animation.diamond_wand": {
+    "states":{
+            "default": {
+               "on_entry": [
+            "@s diamond_fire",                        "/replaceitem entity @s slot.weapon.mainhand 0 mengxin:diamond_wand 1 1"
+          ],
+          "transitions": [ 
+     	{ "diamond": "query.variant == 301 && query.is_using_item == 1.0" }          ]
+        },
+         "diamond": {
+             "on_entry": [
+            "@s diamond_fire",                        "/replaceitem entity @s slot.weapon.mainhand 0 mengxin:diamond_wand 1 2"
+          ],
+          "transitions": [ 
+{ "default": "query.variant == 301 && query.is_using_item == 1.0" }  
+          ]
+        }
+    }
+    },
+    	"controller.animation.gold_wand": {
+    "states":{
+            "default": {
+               "on_entry": [
+            "@s gold_fire",                        "/replaceitem entity @s slot.weapon.mainhand 0 mengxin:gold_wand 1 1"
+          ],
+          "transitions": [ 
+     	{ "gold": "query.variant == 302 && query.is_using_item == 1.0" }          ]
+        },
+         "gold": {
+             "on_entry": [
+            "@s gold_fire",                        "/replaceitem entity @s slot.weapon.mainhand 0 mengxin:gold_wand 1 2"
+          ],
+          "transitions": [ 
+{ "default": "query.variant == 302 && query.is_using_item == 1.0" }  
+          ]
+        }
+    }
+    },
+    	"controller.animation.iron_wand": {
+    "states":{
+            "default": {
+               "on_entry": [
+            "@s iron_fire",                        "/replaceitem entity @s slot.weapon.mainhand 0 mengxin:iron_wand 1 1"
+          ],
+          "transitions": [ 
+     	{ "iron": "query.variant == 303 && query.is_using_item == 1.0" }          ]
+        },
+         "iron": {
+             "on_entry": [
+            "@s iron_fire",                        "/replaceitem entity @s slot.weapon.mainhand 0 mengxin:iron_wand 1 2"
+          ],
+          "transitions": [ 
+{ "default": "query.variant == 303 && query.is_using_item == 1.0" }  
+          ]
+        }
+    }
+    },
+    	"controller.animation.water_ray": {
+    "states":{
+            "default": {
+               "on_entry": [
+            "@s water_ray_fire",                        "/replaceitem entity @s slot.weapon.mainhand 0 mengxin:ocean_wand 1 1"
+          ],
+          "transitions": [ 
+     	{ "water_ray": "query.variant == 202 && query.is_using_item == 1.0" }          ]
+        },
+         "water_ray": {
+             "on_entry": [
+            "@s water_ray_fire",                        "/replaceitem entity @s slot.weapon.mainhand 0 mengxin:ocean_wand 1 2"
+          ],
+          "transitions": [ 
+     	{ "default": "query.variant == 202 && query.is_using_item == 1.0" }  
+          ]
+        }
+      }
+    }
+        }
+      }
+/*我打赌你是直接翻下来看看我会说什么的，什么也没有!*/
