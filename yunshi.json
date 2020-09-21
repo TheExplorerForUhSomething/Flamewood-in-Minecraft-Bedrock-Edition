@@ -1,0 +1,19 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:block": {
+    "description": {
+    "identifier": "mengxin:yunshi_ore",
+      "register_to_creative_menu": true,
+      "is_experimental": false
+    },
+/*来自外太空的神秘陨石*/
+    "components": {
+    "minecraft:explosion_resistance": {
+        "value":  10.0
+      },
+    "minecraft:destroy_time": {
+        "value": 3.0
+      }
+    }
+  }
+}
